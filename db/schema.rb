@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_29_085317) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_30_125519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_29_085317) do
     t.bigint "cafe_restaurant_t_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role_type"
+    t.integer "role_type"
     t.index ["cafe_restaurant_t_id"], name: "index_user_roles_on_cafe_restaurant_t_id"
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
@@ -39,6 +39,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_29_085317) do
     t.integer "tel"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.integer "age"
   end
 
   add_foreign_key "user_roles", "cafe_restaurant_ts"
