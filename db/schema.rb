@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_151300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
-    t.integer "age"
+    t.date "age"
   end
 
   add_foreign_key "user_roles", "cafe_restaurant_ts"
