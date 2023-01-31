@@ -8,5 +8,5 @@ class CafeRestaurantT < ApplicationRecord
   validates :website, format: { with:  VALID_LINK_REGEX, message: "Invalid URL format" }
 
 	scope :search_by_name, ->(patern) { where("name ILIKE ?","%#{patern}%") }
-  scope :active_user, -> {CafeRestaurantT.joins(:User, :UserRole).where(active: true).cafe_restaurant_t}
+  scope :active_user_roles, -> { joins(:user_roles).where("user_roles.active = ?", true) }
 end

@@ -4,4 +4,5 @@ class UserRole < ApplicationRecord
 
   enum role_type: ['admin', 'chef', 'waiter']
   
+  scope :active, ->{ where(active: true) }
 end
