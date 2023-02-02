@@ -9,7 +9,17 @@ class User < ApplicationRecord
   validates :email, presence: { message: "is required" }, 
             uniqueness: true, length: {maximum: 70},
             format: { with: URI::MailTo::EMAIL_REGEXP, message: "Invalid format" }
-  validates_inclusion_of  :age, :in=>Date.new(1900)..Time.now.years_ago(18).to_date
+  validate :check_age
 
 	scope :search_by_name, ->(patern) { where("name ILIKE ?","%#{patern}%") }
+
+  private
+
+  def check_age
+    if (Date.today - age) / 365.25 >= 18
+        true
+    else
+        errors.add(:age, "must be at least 18 yesrs old")
+    end
+  end
 end

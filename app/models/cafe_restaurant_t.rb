@@ -5,8 +5,8 @@ class CafeRestaurantT < ApplicationRecord
   has_many :users, through: :user_roles
 
   validates :name, presence: { message: "is required" }
-  validates :website, format: { with:  VALID_LINK_REGEX, message: "Invalid URL format" }
+  validates :website, format: { with:  VALID_LINK_REGEX, message: "Invalid URL format" }, allow_nil: true
 
 	scope :search_by_name, ->(patern) { where("name ILIKE ?","%#{patern}%") }
-  scope :active_user_roles, -> { joins(:user_roles).where("user_roles.active = ?", true) }
+  scope :active_user_roles, ->(active_option: true) { joins(:user_roles).where('active = ?', active_option).distinct }
 end
