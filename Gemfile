@@ -47,3 +47,10 @@ group :development do
   # gem "spring"
 end
 
+
+
+gem "factory_bot_rails", "~> 6.2"
+
+gem "rspec", "~> 3.12"
+
+gem "faker", "~> 3.1"
