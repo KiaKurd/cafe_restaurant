@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'UserRole'
 
 RSpec.describe CafeRestaurantT, type: :model do
     subject(:cafe_restaurant_t) { create(:cafe_restaurant_t) }

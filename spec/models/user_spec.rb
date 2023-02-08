@@ -3,45 +3,42 @@ require 'rails_helper'
 RSpec.describe User, type: :model do 
   subject(:user) { create(:user) }
 
-  context "associations" do
+  context "Relationships" do
     it { expect(user).to have_many(:user_roles) }
-    it { expact(user).to have_many(:cafe_restaurant_t).through(:user_roles) }
+    it { expect(user).to have_many(:cafe_restaurant_ts).through(:user_roles) }
   end
 
-  context "validations" do
+  context "Validates Presence" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
   end
 
-  context 'when email should be unique' do
-    it 'something 'do 
-      user = create(:user)
-    end
+  context 'Validates Uniqueness of email' do
     it { is_expected.to be(validate_uniqueness_of(:email)) }
   end
   
   context 'check email format' do
-    
-    it 'when email is invalid' do
-      email = 'invalidEmailcom'
-      expect(validatable.errors(:email).to eq(['Invalid format']))
+    it 'when email is invalid format' do
+      user = create(:user)
+      user.email += "#something"
+      expect( user.errors[:email]).to include("Invalid format")
     end
   end
 
-  context 'when check age' do
+  context '#check_age' do
     it 'when age is >= 18' do
-      user.age = 20.years.ago
-      expact(create(:user, age: 20.years.ago)).to be(true)
+      user = create(:user, age: 20.years.ago)
+      expect( user.validate! ).to be(true)
     end
     it 'when age is < 18' do
-      expect {create(:user, age: 17.years.ago) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { create(:user, age: 17.years.ago) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
-  context "scopes" do
+  context "Scopes" do
     it "searche by users name" do
       user1_name = "kakashi"
-      user2_name = "hashirama"
+      user2_name = "kakashi_h"
       user3_name = "jiraiya"
 
       user1 = create(:user, name: user1_name)
