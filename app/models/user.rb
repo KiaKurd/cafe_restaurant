@@ -6,10 +6,10 @@ class User < ApplicationRecord
   has_many :cafe_restaurant_ts, through: :user_roles
 
   # validations
-  validates :name, presence: { message: "is required" },
-            length: {minimum: 3, maximum: 25}
-  validates :email, presence: { message: "is required" }, 
-            uniqueness: true, length: {maximum: 70},
+  validates :name, presence: true,
+            length: { maximum: 25}
+  validates :email, presence: true, 
+            uniqueness: { case_sensitive: false }, length: {maximum: 70},
             format: { with: URI::MailTo::EMAIL_REGEXP, message: "Invalid format" }
   validate :check_age
 
