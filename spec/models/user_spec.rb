@@ -14,14 +14,16 @@ RSpec.describe User, type: :model do
   end
 
   context 'Validates Uniqueness of email' do
-    it { is_expected.to be(validate_uniqueness_of(:email)) }
+    #! it { is_expected.to be(validate_uniqueness_of(:email)).case_insensitive }
+    it { should validate_uniqueness_of(:email).case_insensitive }
   end
   
   context 'check email format' do
-    it 'when email is invalid format' do
+    it 'when email is getting updated to an invalid format' do
       user = create(:user)
       user.email += "#something"
-      expect( user.errors[:email]).to include("Invalid format")
+      expect( user.valid? ).to be(false)
+      expect( user.errors[:email] ).to  include("Invalid format")
     end
   end
 
