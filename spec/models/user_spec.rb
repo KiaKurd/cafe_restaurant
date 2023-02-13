@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do 
+RSpec.describe User, type: :model do
   subject(:user) { create(:user) }
 
   context "Relationships" do
@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
     #! it { is_expected.to be(validate_uniqueness_of(:email)).case_insensitive }
     it { should validate_uniqueness_of(:email).case_insensitive }
   end
-  
+
   context 'check email format' do
     it 'when email is getting updated to an invalid format' do
       user = create(:user)

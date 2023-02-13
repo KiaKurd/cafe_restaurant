@@ -1,6 +1,6 @@
-FactoryBot.define do 
+FactoryBot.define do
     factory :user_role do
-        useer
+        user
         cafe_restaurant_t
     end
-end
+  end

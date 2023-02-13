@@ -1,8 +1,9 @@
-FactoryBot.define do 
+FactoryBot.define do
     factory :cafe_restaurant_t do
-        name { Faker::Company.name }
-        address { Faker::Address.street_address }
-        description { Faker::Lorem.sentence }
-        website { Faker::Internet.domain_name }
+      name { Faker::Restaurant.name}
+      address { Faker::Address.street_address }
+      website { Faker::Internet.url }
+      description { Faker::Restaurant.description }
+
     end
-end
+  end
