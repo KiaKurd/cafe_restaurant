@@ -3,6 +3,6 @@ FactoryBot.define do
         name { Faker::Company.name }
         address { Faker::Address.street_address }
         description { Faker::Lorem.sentence }
-        website { Faker::Internet.domain_name }
+        website { Faker::Internet.url }
     end
 end
