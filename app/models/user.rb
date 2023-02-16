@@ -26,4 +26,3 @@ class User < ApplicationRecord
     end
   end
 end
-#just a merge 

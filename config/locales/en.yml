@@ -31,3 +31,20 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      cafe_restaurant_ts:
+        website: "Website"
+      users:
+        email: "E-mail address"
+    errors:
+      models:
+        cafe_restaurant_ts:
+          attributes:
+            website:
+              format: "Invalid URL format"
+        users:
+          attributes:
+            email:
+              blank: "is required"
+              format: "Invalid E-mail format"
