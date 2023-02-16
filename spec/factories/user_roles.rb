@@ -1,4 +1,4 @@
-FactoryBot.define do 
+FactoryBot.define do
     factory :user_role do
         role_type { "admin" }
         active { Faker::Boolean.boolean }
@@ -6,12 +6,3 @@ FactoryBot.define do
         cafe_restaurant_t
     end
 end
-# FactoryBot.define do
-#     factory :user_role do
-#       role_type { "admin" }
-#       active { Faker::Boolean.boolean }
-#       user
-#       cafe_restaurant_t
-#     end
-#   end
-  
