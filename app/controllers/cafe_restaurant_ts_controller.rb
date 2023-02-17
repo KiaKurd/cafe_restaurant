@@ -1,0 +1,2 @@
+class CafeRestaurantTsController < ApplicationController
+end
