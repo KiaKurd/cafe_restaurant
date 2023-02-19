@@ -32,6 +32,10 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  require File.expand_path("../../config/environment", __FILE__)
+
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
