@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 		rander json: users.to_json
   end
 
-	#get /users/1
+	#get /users/id
   def show
 		rander json: @user
   end
