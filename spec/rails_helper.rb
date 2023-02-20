@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # require database cleaner should be at the top level
