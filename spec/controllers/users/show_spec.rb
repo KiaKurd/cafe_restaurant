@@ -1,14 +1,14 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do 
 	describe '#show' do 
 		context 'valide request' do
 			it 'gets user' do 
 				user = create(:user)
-
+				
 				get "/users/#{user.id}"
 				
-				expect().to eql(user.name)
+				expect(JSON.parse(response.body)["name"]).to eql(user.name)
 			end
 		end
 

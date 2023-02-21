@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do 
 	describe '#destroy' do 
-		context 'valide request' do 
+		context 'valid request' do 
 			it 'deletes user' do 
 				user = create(:user)
 								
@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :request do
 			end
 		end
 		
-		context 'ivalide request' do
+		context 'ivalid request' do
 			it 'user not found' do
 				user = create(:user)
 
