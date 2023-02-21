@@ -3,14 +3,14 @@ class UsersController < ApplicationController
 
   #get /users
   def index
-		users = User.all
+		@users = User.all
 
-		rander json: users.to_json
+		render json: @users.to_json
   end
 
 	#get /users/id
   def show
-		rander json: @user
+		render json: @user.to_json
   end
 
   #Delete /users/1
