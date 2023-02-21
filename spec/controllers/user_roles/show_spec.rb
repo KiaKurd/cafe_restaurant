@@ -12,7 +12,7 @@ RSpec.describe UserRolesController, type: :request do
 
         # Expects
         
-        expect{JSON.parse(response.body)["user_id"]}  == (user_role.user_id)
+        expect{JSON.parse(response.body)["id"]}  == (user_role.id)
       end
     end
 
