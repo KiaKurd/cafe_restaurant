@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :request do 
 	describe '#index' do 
 		it 'show list of users' do
-			uesrs = create_list(:user, 3)
+			users = create_list(:user, 3)
 
 			get "/users"
-
 			expect(response.status).to eq(200)
-			expect(json).to eq(users[0].name)
-			expect(json).to eq(users[1].name) 
-			expect(json).to eq(users[2].name)
+
+			body = JSON.parse(response.body)
+			
+			expect(body.map { |user| user["name"] }).to eql(users.map { |user| user["name"] })
 		end
 	end
 end
