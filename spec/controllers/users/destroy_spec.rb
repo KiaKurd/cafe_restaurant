@@ -8,15 +8,14 @@ RSpec.describe UsersController, type: :request do
 								
 				delete "/users/#{user.id}"
 									
-				expect(response.status).to eql(204) 
+				expect(response.status).to eql(204)
 			end
 		end
 		
 		context 'ivalid request' do
 			it 'user not found' do
 				user = create(:user)
-
-				expect{ delete "/users/#{user.id + 1}" }.to raise_error(ActiveRecord::RecordNotFound)
+				expect { delete "/users/#{user.id + 1}" }.to raise_error(ActiveRecord::RecordNotFound)
 			end
 		end
 	end
