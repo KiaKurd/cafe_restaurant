@@ -5,12 +5,12 @@ class UsersController < ApplicationController
   def index
 		@users = User.all
 
-		render json: @users.to_json
+		render jsonapi: @users, exclude: %w(cafe_restaurant_ts user_roles)
   end
 
 	#get /users/id
   def show
-		render json: @user.to_json
+		render jsonapi: @user, exclude: %W(relationships)
   end
 
   #Delete /users/1
