@@ -10,7 +10,7 @@ RSpec.describe CafeRestaurantTsController, type: :request do
         get "/cafe_restaurant_ts/#{cafe.id}"
 
         # Expects
-        expect(JSON.parse(response.body)["name"]).to eql(cafe.name)
+        expect(JSON.parse(response.body)['data']['attributes']['name']).to eql(cafe.name)
       end
     end
 
