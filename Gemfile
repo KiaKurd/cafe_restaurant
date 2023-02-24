@@ -52,6 +52,8 @@ group :development do
   # gem "spring"
 end
 
-group :test do 
+group :test do
   gem 'database_cleaner'
 end
+
+gem 'jsonapi-rails'
