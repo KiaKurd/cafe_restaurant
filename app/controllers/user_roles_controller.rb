@@ -3,11 +3,11 @@ class UserRolesController < ApplicationController
     
     def index
         @user_roles = UserRole.all
-        render json: @user_roles.to_json
+        render jsonapi: @user_roles, include: %w(users cafe_restaurant_ts)
     end
 
     def show   
-        render json: @user_role.to_json
+        render jsonapi: @user_role, include: %w(users cafe_restaurant_ts)
     end
     
     def destroy
