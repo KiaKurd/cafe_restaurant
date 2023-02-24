@@ -15,9 +15,9 @@ class UserRolesController < ApplicationController
     end
 
     def create  
-        @user_role = UserRole.new(user_role_params)
+        @user_role = UserRole.create(user_role_params)
         if @user_role.save 
-          render :show, status: :created, location: @user_role
+          render jsonapi: @user_role
         else
           render json: @user_role.errors, status: :unprocessable_entity
         end
@@ -26,9 +26,9 @@ class UserRolesController < ApplicationController
     def update
       @user_role = UserRole.find(params[:id])
       if @user_role.update(user_role_params)
-        render :show, status: :ok, location: @user_role
+        render jsonapi: @user_role
       else
-        render json: @user_role.errors, status: :unprocessable_entity 
+        render jsonapi: @user_role.errors
       end
     end
 
