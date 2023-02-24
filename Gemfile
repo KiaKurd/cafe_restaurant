@@ -62,3 +62,5 @@ end
 gem "rack-cors", "~> 2.0"
 
 
+
+gem "jsonapi-rails", "~> 0.4.1"
