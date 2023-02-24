@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def update 
+
+  end
+
   private
 
 	# Use callbacks to share common setup or constraints between actions.
