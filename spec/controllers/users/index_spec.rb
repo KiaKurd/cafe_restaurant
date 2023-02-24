@@ -9,8 +9,7 @@ RSpec.describe UsersController, type: :request do
 			expect(response.status).to eq(200)
 
 			body = JSON.parse(response.body)
-			
-			expect(body.map { |user| user["name"] }).to eql(users.map { |user| user["name"] })
+			expect(body['data'].map { |user| user['attributes']['name'] }).to eql(users.map { |user| user["name"] })
 		end
 	end
 end

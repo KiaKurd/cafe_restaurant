@@ -7,8 +7,8 @@ RSpec.describe UsersController, type: :request do
 				user = create(:user)
 				
 				get "/users/#{user.id}"
-				
-				expect(JSON.parse(response.body)["name"]).to eql(user.name)
+				json = JSON.parse(response.body)
+				expect(json['data']['attributes']['name']).to eql(user.name)
 			end
 		end
 
