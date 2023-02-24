@@ -47,7 +47,7 @@ RSpec.describe UserRole, type: :model do
                 role_type = "manager"
                 
                 # Expects
-                expect { create(:user_role, role_type: role_type) }.to raise_error(ArgumentError)
+                expect{ create(:user_role, role_type: role_type) }.to raise_error(ArgumentError)
             end
         end
     end

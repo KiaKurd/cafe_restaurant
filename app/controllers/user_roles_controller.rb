@@ -1,5 +1,5 @@
 class UserRolesController < ApplicationController
-    before_action :find_user_role, only: [:show, :destroy]
+    before_action :find_user_role, only: [:show, :destroy, :update]
     
     def index
         @user_roles = UserRole.all
@@ -17,12 +17,20 @@ class UserRolesController < ApplicationController
     def create  
         @user_role = UserRole.new(user_role_params)
         if @user_role.save 
-          render jsonapi: @user_role
+          render :show, status: :created, location: @user_role
         else
-          render jsonapi_errors: { detail: @user_role.errors.messages }, status: :not_acceptable
+          render json: @user_role.errors, status: :unprocessable_entity
         end
     end
 
+    def update
+      @user_role = UserRole.find(params[:id])
+      if @user_role.update(user_role_params)
+        render :show, status: :ok, location: @user_role
+      else
+        render json: @user_role.errors, status: :unprocessable_entity 
+      end
+    end
 
     private
 
