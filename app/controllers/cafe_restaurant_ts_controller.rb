@@ -3,11 +3,11 @@ class CafeRestaurantTsController < ApplicationController
 
   def index
     @cafes = CafeRestaurantT.all
-    render json: @cafes.to_json
+    render jsonapi: @cafes, include: %w(user_roles users)
   end
 
   def show
-    render json: @cafe.to_json
+    render jsonapi: @cafe, include: %w(user_roles users)
   end
 
   def destroy
