@@ -21,9 +21,8 @@ class UsersController < ApplicationController
 
   #PUT /users/id
   def update
-    user = User.find(params[:id])
-    user.update_attributes(user_params)
-    render jsonapi: user
+    @user.update_attributes(user_params)
+    render jsonapi: @user
   end
 
   #Delete /users/1
@@ -39,6 +38,12 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :address, :email, :tel, :age)
+    params.require(:user).permit(
+      :name,
+      :address, 
+      :email, 
+      :tel, 
+      :age
+    )
   end
 end
