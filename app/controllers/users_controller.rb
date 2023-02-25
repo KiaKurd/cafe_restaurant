@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 		render jsonapi: @user, exclude: %W(relationships)
   end
   
-  #POST users/id
+  #POST /users
   def create
     user = User.create(user_params)
     render jsonapi: user
@@ -37,6 +37,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  # Only allow a list of trusted parameters through.
   def user_params
     params.require(:user).permit(
       :name,
