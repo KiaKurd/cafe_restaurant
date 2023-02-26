@@ -13,7 +13,7 @@ RSpec.describe UsersController, type: :request do
         expect(response).to have_http_status(:created) #201
 
         json = parse_json
-        expect(json['data']['attributes']['email']).to eql(attributes[:email])
+        expect(json['data']['attributes']['name']).to eql(attributes[:name])
       end
     end
     context 'invalid request' do 
@@ -24,7 +24,7 @@ RSpec.describe UsersController, type: :request do
           user: attributes
         }
 
-        expect(response.status).to eql(400)
+        expect(response).to have_http_status(:bad_request) #400
         expect(parse_json).to eql({"name"=>["can't be blank"]})
       end
 
@@ -35,7 +35,7 @@ RSpec.describe UsersController, type: :request do
           user: attributes
         }
 
-        expect(response.status).to eql(400)
+        expect(response).to have_http_status(:bad_request) #400
         expect(parse_json).to eql({"email"=>["can't be blank", "Invalid format"]})
       end
 
@@ -46,7 +46,7 @@ RSpec.describe UsersController, type: :request do
           user: attributes
         }
 
-        expect(response.status).to eql(400)
+        expect(response).to have_http_status(:bad_request) #400
         expect(parse_json).to eql({"age"=>["must be at least 18 yesrs old"]})
       end
     end
