@@ -15,14 +15,21 @@ class UsersController < ApplicationController
   
   #POST /users
   def create
-    user = User.create(user_params)
-    render jsonapi: user
+    user = User.new(user_params)
+    if user.save
+      render jsonapi: user, status: :created
+    else
+      render json: user.errors, status: :bad_request #400
+    end
   end
 
   #PUT /users/id
   def update
-    @user.update_attributes(user_params)
-    render jsonapi: @user
+    if @user.update(user_params)
+      render jsonapi: @user, status: :accepted #202
+    else
+      render json: @user.errors, status: :bad_request #400
+    end
   end
 
   #Delete /users/1
