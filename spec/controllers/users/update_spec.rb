@@ -7,23 +7,46 @@ RSpec.describe UsersController, type: :request do
         user = create(:user)
         attributes = FactoryBot.attributes_for(:user)
 
-        put "/users/#{user.id}", params: attributes
-
-        expect(response).to have_http_status(:accepted) #202
+        put "/users/#{user.id}", params: {
+          user: attributes
+        }
 
         json = JSON.parse(response.body)
-        expect(json['data']['attributes']['name']).to eq(attributes['name'])
+        
+        expect(response).to have_http_status(:accepted) #202
+        expect(json['data']['attributes']['name']).to eq(attributes[:name])
       end
     end
     context 'with invalid params' do
-      it 'should reject' do
-        # binding.pry
+      it 'with blank attribute' do
         user = create(:user)
         attributes = FactoryBot.attributes_for(:user, name: nil)
 
-        expect( put "/users/#{user.id}", params: attributes).to raise_error(ActionController::ParameterMissing)
-        expect( put "/users/#{user.id + 1}", params: attributes).to raise_error(ActiveRecord::RecordNotFound)
+        put "/users/#{user.id}", params: {
+          user: attributes
+        }
+
+        expect(response).to have_http_status(:bad_request) #400
+        expect(parse_json).to eql({"name"=>["can't be blank"]})
+      end
+
+      it 'with invalid id' do
+        user = create(:user)
+        attributes = FactoryBot.attributes_for(:user)
+        
+        #! getting no response 
+        put "/users/#{user.id + 1}", params: {
+          user: attributes
+        }
+        
+        expect(response.status).to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+  end
+
+  private
+
+  def parse_json
+    JSON.parse(response.body)
   end
 end
