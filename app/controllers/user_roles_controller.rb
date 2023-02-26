@@ -15,7 +15,6 @@ class UserRolesController < ApplicationController
     end
 
     def create  
-        @user_role = UserRole.create(user_role_params)
         if @user_role.save 
           render jsonapi: @user_role
         else
