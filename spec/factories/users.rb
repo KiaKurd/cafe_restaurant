@@ -4,6 +4,6 @@ FactoryBot.define do
         email { Faker::Internet.unique.email }
         age { Faker::Date.birthday(min_age: 18, max_age: 70) }
         address { Faker::Address.street_address }
-        tel { Faker::PhoneNumber.cell_phone_in_e164 }
+        tel { Faker::PhoneNumber.cell_phone }
     end
 end
