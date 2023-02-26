@@ -9,18 +9,19 @@ RSpec.describe UserRolesController, type: :request do
         user = create(:user)
         cafe_restaurant_t = create(:cafe_restaurant_t)
 
-        attributes  = FactoryBot.attributes_for(:user_role)
+        attributes  = FactoryBot.attributes_for(:user_role),
         attributes[:user_id] = user.id
         attributes[:cafe_restaurant_t_id] = cafe_restaurant_t.id
 
         # Request
         post "/user_roles", params: {
-              user_role: attributes,
-            }
-        byebug
+          user_role: attributes,
+        }
+        #  byebug
         # Expects
         expect(response.status).to eql(200)
         expect(JSON.parse(response.body)['data']['attributes']['role_type']).to eql(attributes[:role_type])
+        expect(JSON.parse(response.body)['data']['relationships']['user']['data']['id']).to eql(attributes[:user_id].to_s)
       end
 
       it 'blank attributes' do
@@ -33,7 +34,7 @@ RSpec.describe UserRolesController, type: :request do
               user_role: attributes,
             }
         # Expects
-        expect(response.status).to eql(422)
+        expect(response.status).to eql(400)
       end
     end
   end
