@@ -1,5 +1,5 @@
 class SerializableUserRole < JSONAPI::Serializable::Resource
-  type 'user_role'
+  type 'user'
 
   attributes :role_type, :active
 
