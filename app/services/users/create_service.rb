@@ -8,6 +8,7 @@ module Users
 
     def call
       create_user
+      
       user
     end
 

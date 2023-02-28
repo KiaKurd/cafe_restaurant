@@ -7,7 +7,7 @@ module Users
 
     def call
       update_user
-      
+
       exist_user
     end
 
