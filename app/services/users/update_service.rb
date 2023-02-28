@@ -1,8 +1,10 @@
 module Users
   class UpdateService
     attr_reader :params, :user
-    def initialize(params)
-     @params = params
+
+    def initialize(user, params)
+      @user = user
+      @params = params
     end
 
     def call
@@ -12,8 +14,6 @@ module Users
     end
 
     def update_user
-      @user = User.find_by_id(params[:id])
-
       user.name = params[:name] if params.key?(:name)
       user.email = params[:email] if params.key?(:email)
       user.address = params[:address] if params.key?(:address)
