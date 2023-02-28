@@ -5,7 +5,7 @@ RSpec.describe UsersController, type: :request do
     context 'with valid params' do
       it 'should update' do
         user = create(:user)
-        attributes = FactoryBot.attributes_for(:user, id: user.id)
+        attributes = FactoryBot.attributes_for(:user)
 
         put "/users/#{user.id}", params: {
           user: attributes
@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :request do
     context 'with invalid params' do
       it 'with blank attribute name' do
         user = create(:user)
-        attributes = FactoryBot.attributes_for(:user, id: user.id, name: nil)
+        attributes = FactoryBot.attributes_for(:user, name: nil)
 
         put "/users/#{user.id}", params: {
           user: attributes
@@ -32,7 +32,7 @@ RSpec.describe UsersController, type: :request do
 
       it 'with invalid id' do
         user = create(:user)
-        attributes = FactoryBot.attributes_for(:user, id: user.id)
+        attributes = FactoryBot.attributes_for(:user)
 
         expect { put "/users/#{user.id + 1}", params: { user: attributes }}.
           to raise_error(ActiveRecord::RecordNotFound)
