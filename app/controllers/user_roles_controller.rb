@@ -15,20 +15,22 @@ class UserRolesController < ApplicationController
     end
 
     def create
-      @user_role = UserRole.new(user_role_params) 
-        if @user_role.save 
-          render jsonapi: @user_role, include: %w(user cafe_restaurant_t)
+      # byebug
+      result_service = UserRoles::CreateService.new(user_role_params).call
+        if result_service.valid? 
+          render jsonapi: result_service, 
+          status: :created, include: %w(user cafe_restaurant_t)
         else
-          render json: @user_role.errors, status: :bad_request
+          render json: result_service, status: :bad_request
         end
     end
 
     def update
-      @user_role = UserRole.find(params[:id])
-      if @user_role.update(user_role_params)
-        render jsonapi: @user_role, include: %w(user cafe_restaurant_t)
+      result_service = UserRoles::UpdateService.new(@user_role, user_role_params).call
+      if result_service.valid?
+        render jsonapi: result_service.reload, include: %w(user cafe_restaurant_t), status: :accepted #201
       else
-        render json: @user_role.errors, status: :bad_request
+        render json: result_service.errors, status: :bad_request #400
       end
     end
 
