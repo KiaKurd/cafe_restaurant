@@ -1,6 +1,6 @@
 module Users
   class UpdateService
-    attr_reader :params, :exist_user
+    attr_reader :params, :user
     def initialize(params)
      @params = params
     end
@@ -8,22 +8,22 @@ module Users
     def call
       update_user
 
-      exist_user
+      user
     end
 
     def update_user
-      @exist_user = User.find_by_id(params[:id])
+      @user = User.find_by_id(params[:id])
 
-      exist_user.name = params[:name] if params.key?(:name)
-      exist_user.email = params[:email] if params.key?(:email)
-      exist_user.address = params[:address] if params.key?(:address)
-      exist_user.tel = params[:tel] if params.key?(:tel)
-      exist_user.age = params[:age] if params.key?(:age)
+      user.name = params[:name] if params.key?(:name)
+      user.email = params[:email] if params.key?(:email)
+      user.address = params[:address] if params.key?(:address)
+      user.tel = params[:tel] if params.key?(:tel)
+      user.age = params[:age] if params.key?(:age)
 
-      if exist_user.valid?
-        exist_user.save!
+      if user.valid?
+        user.save!
       else 
-        exist_user.errors
+        user.errors
       end
     end
   end
