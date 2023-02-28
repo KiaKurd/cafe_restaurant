@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :request do
     end
     context 'invalid request' do 
       it 'blank attribute name' do
-        attributes = FactoryBot.attributes_for(:user, name: nil)
+        attributes = FactoryBot.attributes_for(:user, name: '')
 
         post "/users", params: {
           user: attributes
@@ -28,7 +28,7 @@ RSpec.describe UsersController, type: :request do
         expect(parse_json).to eql({"name"=>["can't be blank"]})
       end
 
-      it 'black attribute email' do
+      it 'nil attribute for email' do
         attributes = FactoryBot.attributes_for(:user, email: nil)
         
         post "/users", params:{
