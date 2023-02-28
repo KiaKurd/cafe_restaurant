@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   #PUT /users/id
   def update
-    result = Users::UpdateService.new(user_params).call
+    result = Users::UpdateService.new(@user, user_params).call
     if result.valid?
       render jsonapi: result.reload, status: :accepted #202
     else
@@ -58,8 +58,7 @@ class UsersController < ApplicationController
       :address, 
       :email, 
       :tel, 
-      :age,
-      :id
+      :age
     )
   end
 end
