@@ -20,9 +20,9 @@ class User < ApplicationRecord
 
   def check_age
     if (Date.today - age) / 365.25 >= 18
-        true
+      true
     else
-        errors.add(:age, "must be at least 18 yesrs old")
+      errors.add(:age, "must be at least 18 yesrs old")
     end
   end
 end
