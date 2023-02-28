@@ -15,16 +15,16 @@ class CafeRestaurantTsController < ApplicationController
   end
 
   def create
-    @cafe = CafeRestaurantT.new(cafe_params)
-    if @cafe.save
-      render jsonapi: @cafe
+    result = CreateCafeService.call(cafe_params)
+    if result.valid?
+      render jsonapi: result, status: :created
     else
-      render json: @cafe.errors, status: :not_acceptable
+      render json: result.errors, status: :bad_request
     end
   end
 
   def update
-    if @cafe.update(cafe_params)
+    if UpdateCafeService.call(@cafe, cafe_params)
       render jsonapi: @cafe
     else
       render jsonapi: @cafe.errors
