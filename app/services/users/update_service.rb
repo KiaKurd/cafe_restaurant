@@ -13,7 +13,6 @@ module Users
 
     def update_user
       @exist_user = User.find_by_id(params[:id])
-      errors.add(:exist_user, 'user not found') unless exist_user.present?
 
       exist_user.name = params[:name] if params.key?(:name)
       exist_user.email = params[:email] if params.key?(:email)
