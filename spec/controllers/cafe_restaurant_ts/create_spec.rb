@@ -13,7 +13,7 @@ RSpec.describe CafeRestaurantTsController, type: :request do
             }
 
         json = JSON.parse(response.body)
-        expect(response.status).to eql(200)
+        expect(response.status).to eql(201)
         expect(json['data']['attributes']['name']).to eql(attributes[:name])
       end
 
@@ -27,7 +27,7 @@ RSpec.describe CafeRestaurantTsController, type: :request do
             }
 
         json = JSON.parse(response.body)
-        expect(response.status).to eql(406)
+        expect(response.status).to eql(400)
         expect(json["name"]).to eql(["can't be blank"])
       end
     end
