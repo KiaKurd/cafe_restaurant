@@ -18,7 +18,7 @@ RSpec.describe UserRolesController, type: :request do
         put "/user_roles/#{user_role.id}", params: attributes
         # byebug
         # Expects
-        expect(response.status).to eql(200)
+        expect(response.status).to eql(202)
         expect(JSON.parse(response.body)['data']['attributes']['role_type']).to eql(attributes[:user_role][:role_type])
       end
     end
