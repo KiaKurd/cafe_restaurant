@@ -6,12 +6,12 @@ class UsersController < ApplicationController
 		@users = User.all
 
 		render jsonapi: @users, 
-    include: %w(user_role cafe_restaurant_t),
-    fields: {
-      user: %w(name address age),
-      user_role: %w(role_type active),
-      cafe_restaurant_t: %w(name website description)
-    }
+      include: %w(user_role cafe_restaurant_t),
+      fields: {
+        user: %w(name address age),
+        user_role: %w(role_type active),
+        cafe_restaurant_t: %w(name website description)
+      }
   end
 
 	#GET /users/id
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def create
     result = Users::CreateService.new(user_params).call
     if result.valid?
-      render jsonapi: result.reload, exclude: %w(email), status: :created #201
+      render jsonapi: result, exclude: %w(email), status: :created #201
     else
       render json: result.errors, status: :bad_request #400
     end
