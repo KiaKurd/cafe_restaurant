@@ -22,8 +22,6 @@ RSpec.describe UsersController, type: :request do
 			
 			get "/users"
 			body = json_parse
-
-			binding.pry
 			
 			expect(response.status).to eq(200)
 			#! try to get the realationship between user, user_role and cafe_restaurant_t
