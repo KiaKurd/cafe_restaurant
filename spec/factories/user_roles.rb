@@ -5,4 +5,9 @@ FactoryBot.define do
         user
         cafe_restaurant_t
     end
+    
+    factory :user_role_attributes do
+        role_type { %w[admin chef waiter].sample }
+        active { Faker::Boolean.boolean }
+    end
 end
