@@ -20,11 +20,7 @@ module Users
       user.tel = params[:tel] if params.key?(:tel)
       user.age = params[:age] if params.key?(:age)
 
-      if user.valid? == true
-        user.save!
-      else 
-        user.errors
-      end
+      user.save
     end
   end
 end
