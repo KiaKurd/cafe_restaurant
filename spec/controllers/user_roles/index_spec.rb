@@ -11,10 +11,9 @@ RSpec.describe UserRolesController, type: :request do
 
       # Expects
       expect(response.status).to eq(200)
-    #   byebug
-      expect(JSON.parse(response.body)[0]['id']).to eq(user_roles[0].id)
-      expect(JSON.parse(response.body)[1]['id']).to eq(user_roles[1].id)
-      expect(JSON.parse(response.body)[2]['id']).to eq(user_roles[2].id)
+      expect(JSON.parse(response.body)["data"][0]['id']).to eq(user_roles[0].id.to_s)
+      expect(JSON.parse(response.body)["data"][1]['id']).to eq(user_roles[1].id.to_s)
+      expect(JSON.parse(response.body)["data"][2]['id']).to eq(user_roles[2].id.to_s)
     end
    end
 end

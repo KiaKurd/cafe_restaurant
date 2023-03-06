@@ -12,9 +12,9 @@ class UserRolesController < ApplicationController
 
     def create
       # byebug
-      result_service = UserRoles::CreateService.run(params: user_role_params)
+      result_service = UserRoles::CreateService.run(user_role_params)
         if result_service.valid? 
-          render jsonapi: result_service, 
+          render jsonapi: result_service.result, 
             status: :created, include: %w(user cafe_restaurant_t)
         else
           render json: result_service, status: :bad_request
@@ -24,7 +24,7 @@ class UserRolesController < ApplicationController
     def update
       result_service = UserRoles::UpdateService.run(user_role: @user_role, params: user_role_params)
       if result_service.valid?
-        render jsonapi: result_service.reload, include: %w(user cafe_restaurant_t), 
+        render jsonapi: @user_role.reload, include: %w(user cafe_restaurant_t), 
           status: :accepted #201
       else
         render json: result_service.errors, status: :bad_request #400

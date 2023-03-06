@@ -11,7 +11,7 @@ RSpec.describe UserRoles::UpdateService do
       params  = {role_type: 'chef'}
 
       # Services
-      service_result = described_class.new(user_role, params).call
+      service_result = described_class.run(user_role: user_role, params: params)
 
       # Expects
       expect(user_role.role_type).to eql(params[:role_type])
@@ -24,7 +24,7 @@ RSpec.describe UserRoles::UpdateService do
       params  = {active: true}
 
       # Services
-      service_result = described_class.new(user_role, params).call
+      service_result = described_class.run(user_role: user_role, params: params)
 
       # Expects
       expect(user_role.active).to eql(params[:active])

@@ -1,6 +1,8 @@
+
 module  UserRoles
   class UpdateService < ActiveInteraction::Base
-    attr_reader :user_role, :params
+    object :user_role, class: UserRole
+    hash :params, strip: false
 
     def execute
       user_role_update
