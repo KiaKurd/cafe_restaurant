@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :request do
       end
     end
     context 'with invalid params' do
-      it 'with blank attribute name' do
+      it 'with nil attribute name' do
         user = create(:user)
         attributes = FactoryBot.attributes_for(:user, name: nil)
 
@@ -27,7 +27,19 @@ RSpec.describe UsersController, type: :request do
         }
 
         expect(response).to have_http_status(:bad_request) #400
-        expect(parse_json).to eql({"name"=>["can't be blank"]})
+        expect(parse_json).to eql({"base"=>["Name can't be blank"]})
+      end
+
+      it 'when age is less then 18' do 
+        user = create(:user)
+        attributes = FactoryBot.attributes_for(:user, age: 17.years.ago)
+
+        put "/users/#{user.id}", params: {
+          user: attributes
+        }
+
+        expect(response).to have_http_status(:bad_request) #400
+        expect(parse_json).to eql({"base"=>["Age must be at least 18 yesrs old"]})
       end
 
       it 'with invalid id' do

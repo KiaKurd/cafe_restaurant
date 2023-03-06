@@ -10,25 +10,24 @@ RSpec.describe UsersController, type: :request do
           user: attributes
         }
 
-        expect(response).to have_http_status(:created) #201
-
         json = parse_json
+
+        expect(response).to have_http_status(:created) #201
         expect(json['data']['attributes']['name']).to eql(attributes[:name])
       end
     end
     context 'invalid request' do 
-      it 'blank attribute name' do
+      it 'with blank attribute name' do
         attributes = FactoryBot.attributes_for(:user, name: '')
 
         post "/users", params: {
           user: attributes
         }
-
         expect(response).to have_http_status(:bad_request) #400
-        expect(parse_json).to eql({"name"=>["can't be blank"]})
+        expect(parse_json).to eql({"base"=>["Name can't be blank"]})
       end
 
-      it 'nil attribute for email' do
+      it 'with nil attribute for email' do
         attributes = FactoryBot.attributes_for(:user, email: nil)
         
         post "/users", params:{
@@ -36,7 +35,7 @@ RSpec.describe UsersController, type: :request do
         }
 
         expect(response).to have_http_status(:bad_request) #400
-        expect(parse_json).to eql({"email"=>["can't be blank", "Invalid format"]})
+        expect(parse_json).to eql({"base"=>["Email can't be blank", "Email Invalid format"]})
       end
 
       it 'when age is less then 18' do 
@@ -47,7 +46,7 @@ RSpec.describe UsersController, type: :request do
         }
 
         expect(response).to have_http_status(:bad_request) #400
-        expect(parse_json).to eql({"age"=>["must be at least 18 yesrs old"]})
+        expect(parse_json).to eql({"base"=>["Age must be at least 18 yesrs old"]})
       end
     end
   end
