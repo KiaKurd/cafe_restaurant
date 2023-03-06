@@ -1,13 +1,8 @@
 module  UserRoles
-  class UpdateService 
+  class UpdateService < ActiveInteraction::Base
     attr_reader :user_role, :params
 
-    def initialize(user_role, params)
-      @user_role = user_role
-      @params = params
-    end
-
-    def call
+    def execute
       user_role_update
       
       user_role
@@ -22,6 +17,8 @@ module  UserRoles
       user_role.cafe_restaurant_t_id = params[:cafe_restaurant_t_id] if params.key?(:cafe_restaurant_t_id)
       
       user_role.save
+
+      errors.merge!(@user_role.errors) if @user_role.errors.present?
     end
   end
 end
