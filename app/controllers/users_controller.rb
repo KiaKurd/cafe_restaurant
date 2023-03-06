@@ -21,9 +21,9 @@ class UsersController < ApplicationController
   
   #POST /users
   def create
-    result = Users::CreateService.new(user_params).call
+    result = Users::CreateService.run(params: user_params)
     if result.valid?
-      render jsonapi: result, exclude: %w(email), status: :created #201
+      render jsonapi: result.result, exclude: %w(email), status: :created #201
     else
       render json: result.errors, status: :bad_request #400
     end
@@ -31,9 +31,9 @@ class UsersController < ApplicationController
 
   #PUT /users/id
   def update
-    result = Users::UpdateService.new(@user, user_params).call
+    result = Users::UpdateService.run(user: @user, params: user_params)
     if result.valid?
-      render jsonapi: result.reload, status: :accepted #202
+      render jsonapi: result.result.reload, status: :accepted #202
     else
       render json: result.errors, status: :bad_request #400
     end
