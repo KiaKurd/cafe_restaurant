@@ -1,20 +1,18 @@
 module UserRoles
-  class CreateService
+  class CreateService < ActiveInteraction::Base
     attr_reader :params, :user_role
   
-    def initialize(params)
-      @params = params
-    end
-  
-    def call
+    def execute
       create_user_role
 
-      user_role
+      @user_role
     end
 
     private
   
     def create_user_role
+      return if errors.present?
+
       @user_role = UserRole.new
       user_role.role_type = params[:role_type] if params.key?(:role_type)
       user_role.active = params[:active] if params.key?(:active)
@@ -22,6 +20,8 @@ module UserRoles
       user_role.cafe_restaurant_t_id = params[:cafe_restaurant_t_id] if params.key?(:cafe_restaurant_t_id)
 
       user_role.save
+
+      errors.merge!(@user_role.errors) if @user_role.errors.present?
     end
   end
 end
