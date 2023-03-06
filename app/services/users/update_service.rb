@@ -1,13 +1,11 @@
 module Users
-  class UpdateService
+  class UpdateService < ActiveInteraction::Base
     attr_reader :params, :user
 
-    def initialize(user, params)
-      @user = user
-      @params = params
-    end
+    hash :params, strip: false
+    object :user, class: User
 
-    def call
+    def execute
       update_user
 
       user
@@ -21,6 +19,8 @@ module Users
       user.age = params[:age] if params.key?(:age)
       
       user.save
+
+      errors.merge!(@user.errors) if user.errors.present?
     end
   end
 end

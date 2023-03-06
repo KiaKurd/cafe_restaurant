@@ -1,12 +1,10 @@
 module Users
-  class CreateService
+  class CreateService < ActiveInteraction::Base
     attr_reader :user, :params
+    
+    hash :params, strip: false
 
-    def initialize(params)
-      @params = params
-    end
-
-    def call
+    def execute
       create_user
       
       user
@@ -21,6 +19,8 @@ module Users
       user.age = params[:age] if params.key?(:age)
 
       user.save
+
+      errors.merge!(@user.errors) if user.errors.present?
     end
   end
 end
