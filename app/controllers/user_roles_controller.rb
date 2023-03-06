@@ -9,14 +9,10 @@ class UserRolesController < ApplicationController
     def show   
         render jsonapi: @user_role, include: %w(user cafe_restaurant_t)
     end
-    
-    def destroy
-        @user_role.destroy
-    end
 
     def create
       # byebug
-      result_service = UserRoles::CreateService.new(user_role_params).call
+      result_service = UserRoles::CreateService.run(params: user_role_params)
         if result_service.valid? 
           render jsonapi: result_service, 
             status: :created, include: %w(user cafe_restaurant_t)
@@ -26,13 +22,17 @@ class UserRolesController < ApplicationController
     end
 
     def update
-      result_service = UserRoles::UpdateService.new(@user_role, user_role_params).call
+      result_service = UserRoles::UpdateService.run(user_role: @user_role, params: user_role_params)
       if result_service.valid?
         render jsonapi: result_service.reload, include: %w(user cafe_restaurant_t), 
           status: :accepted #201
       else
         render json: result_service.errors, status: :bad_request #400
       end
+    end
+
+    def destroy
+      @user_role.destroy
     end
 
     private
