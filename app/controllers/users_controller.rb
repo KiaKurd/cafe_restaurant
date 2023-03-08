@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     if result.valid?
       render jsonapi: result.result, exclude: %w(email), status: :created #201
     else
-      render json: result.errors, status: :bad_request #400
+      render jsonapi_errors: { detail: result.errors.messages }, status: :bad_request #400
     end
   end
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     if result.valid?
       render jsonapi: result.result.reload, status: :accepted #202
     else
-      render json: result.errors, status: :bad_request #400
+      render jsonapi_errors: { detail: result.errors.messages }, status: :bad_request #400
     end
   end
 
